@@ -1,24 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Header } from './components/Header';
+import { GlobalStyles } from './styles/global';
+import { HiLightBulb } from 'react-icons/hi';
+import { useState } from 'react';
+import { ModalComponent } from './components/ModalComponent';
+
+import { HiPlusCircle } from 'react-icons/hi';
 
 function App() {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <GlobalStyles />
+      {openModal && <ModalComponent onClick={() => setOpenModal(false)} />}
+      <Header
+        logotype={<HiLightBulb size="48" color="#fff" />}
+        buttonInterative={
+          <HiPlusCircle size="36" onClick={() => setOpenModal(true)} className='btnSvg' />
+        }
+      />
     </div>
   );
 }
