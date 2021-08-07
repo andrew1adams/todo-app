@@ -2,7 +2,7 @@ import { setLightness } from 'polished';
 import styled from 'styled-components';
 import { ButtonProps } from '.';
 
-export const Container = styled.button<Omit<ButtonProps, 'onClick'>>`
+export const Container = styled.button<Pick<ButtonProps, 'color' | 'bgColor' | 'size'>>`
   padding: ${({ size }) => {
     if (size === 'large') {
       return '1.5rem 3rem';

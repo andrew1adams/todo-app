@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { ModalProps } from '.';
 
-export const Container = styled.div<Omit<ModalProps, 'onClick'>>`
+export const Container = styled.div<Pick<ModalProps, 'color' | 'bgColor'>>`
   height: 100vh;
   width: 100%;
   position: absolute;
@@ -11,13 +11,13 @@ export const Container = styled.div<Omit<ModalProps, 'onClick'>>`
   background-color: rgba(0, 0, 0, .4);
   z-index: 1;
   display:flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
  
   .wrapperModal {
     width: 40%;
-    height: 60%;
-    margin: auto;
+    min-width: 400px;
+    margin: 0 auto;
     background-color: ${({color}) => color};
     color: ${({bgColor}) => bgColor};
     border-radius: .5rem;
@@ -25,8 +25,9 @@ export const Container = styled.div<Omit<ModalProps, 'onClick'>>`
   } 
 
   .wrapperModal header {
-    height: 20vh;
-    display: flex;
-    justify-content: space-between;
+    padding: .5rem 1rem;
+    & svg.btnSvg {
+      cursor: pointer;
+    }
   }
 `;
