@@ -18,6 +18,7 @@ function App() {
         buttonInterative={
           <HiPlusCircle size="36" onClick={() => setOpenModal(true)} className='btnSvg' />
         }
+        principalHeader={true}
       />
     </div>
   );

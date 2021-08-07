@@ -34,6 +34,7 @@ export const ModalComponent: React.FC<ModalProps> = ({
           height="auto"
           color={color}
           bgColor={bgColor}
+          principalHeader={false}
         />
         <ModalForm />
       </div>
