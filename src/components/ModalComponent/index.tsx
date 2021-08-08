@@ -27,7 +27,7 @@ export const ModalComponent: React.FC<ModalProps> = ({
     >
       <div className="wrapperModal">
         <Header
-          logotype="Adicionar Nova Tarefa"
+          logotype="Adding a new Task"
           buttonInterative={
             <HiXCircle size="36" onClick={onClick} className="btnSvg" />
           }

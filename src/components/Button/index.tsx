@@ -5,7 +5,7 @@ export interface ButtonProps {
   color?: string;
   bgColor?: string;
   size?: string;
-  className?: string,
+  className?: string;
   onClick: () => void;
 }
 
