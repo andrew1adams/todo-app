@@ -5,25 +5,25 @@ import { HeaderProps } from '.';
 
 export const Container = styled.header<Pick<HeaderProps, 'bgColor' | 'color' | 'height'>>`
   width: 100%;
-  min-height: ${({height}) => height};
-  background-color: ${({bgColor}) => bgColor};
-  color: ${({color}) => color};
+  min-height: ${({ height }) => height};
+  background-color: ${({ bgColor }) => bgColor};
+  color: ${({ color }) => color};
 
   .todoName {
     display: flex;
     flex-direction: row;
-    gap: .2rem;
+    gap: 0.2rem;
     text-align: center;
     align-items: center;
     text-transform: uppercase;
     font-weight: bolder;
-    
+
     p {
       font-size: 2.75rem;
     }
 
     p:nth-child(2) {
-      color: ${({color}) => darken(.3, String(color))};
+      color: ${({ color }) => darken(0.3, String(color))};
     }
   }
 

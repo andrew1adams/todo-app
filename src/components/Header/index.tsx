@@ -29,7 +29,6 @@ export const Header: React.FC<HeaderProps> = ({
             <p>list</p>
           </div>
         )}
-
         {buttonInterative}
       </div>
     </Container>
