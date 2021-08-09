@@ -4,11 +4,13 @@ import { Container } from './style';
 export interface InputProps {
   name: string;
   type: string;
-  label: string;
+  label?: string;
   color?: string;
   bgColor?: string;
-  value: string;
-  onChange: (ev: any) => void;
+  value: any;
+  placeholder?: string
+  onChange?: (ev: any) => void;
+  onClick?: (ev: any) => void;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -16,6 +18,7 @@ export const Input: React.FC<InputProps> = ({
   type,
   label,
   onChange,
+  onClick,
   value,
   color = '#333',
   bgColor = '#fff',
@@ -30,6 +33,7 @@ export const Input: React.FC<InputProps> = ({
         type={type}
         value={value}
         onChange={onChange}
+        onClick={onClick}
         {...props}
       />
     </Container>

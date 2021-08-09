@@ -1,28 +1,26 @@
 import React from 'react';
-import { useState } from 'react';
+import { useContext } from 'react';
+import { TasksContext } from '../../Context/TasksContext';
 import { Button } from '../Button';
 import { Input } from '../Input';
 import { Container } from './style';
 
-interface TodoProps {
-  id: number;
-  task: string;
-  category: string;
-}
-
 export const ModalForm: React.FC = () => {
-  const [value, setValue] = useState<TodoProps>({
-    id: 0,
-    task: '',
-    category: '',
-  });
-  const [list, setList] = useState<TodoProps[]>([]);
-
+  const { inputValue, setInputValue, toDoList, setToDoList } =
+    useContext(TasksContext);
   const handleSubmit = (ev: any) => {
     ev.preventDefault();
-    setList([...list, { ...value, id: ++list.length }]);
-    setValue({ id: 0, task: '', category: '' });
+    setToDoList([...toDoList, { ...inputValue, id: ++toDoList.length }]);
+    setInputValue({
+      id: 0,
+      task: '',
+      category: '',
+      priority: 0,
+      completed: false,
+    });
   };
+
+  console.log();
   return (
     <Container onSubmit={handleSubmit}>
       <div className="inputSections">
@@ -30,17 +28,31 @@ export const ModalForm: React.FC = () => {
           name="task"
           label="Tasks:"
           type="text"
-          value={value.task}
-          onChange={(ev: any) => setValue({ ...value, task: ev.target.value })}
+          placeholder="Describe your task"
+          value={inputValue.task}
+          onChange={(ev: any) =>
+            setInputValue({ ...inputValue, task: ev.target.value })
+          }
         />
         <Input
           name="category"
           label="Category:"
           type="text"
-          value={value.category}
+          placeholder="Describe your category"
+          value={inputValue.category}
           onChange={(ev: any) =>
-            setValue({ ...value, category: ev.target.value })
+            setInputValue({ ...inputValue, category: ev.target.value })
           }
+        />
+        <Input
+          name="priority"
+          label="Level Priority:"
+          type="range"
+          placeholder=""
+          value={inputValue.priority}
+          onChange={(ev: any) => {
+            setInputValue({ ...inputValue, priority: ev.target.value });
+          }}
         />
       </div>
 
