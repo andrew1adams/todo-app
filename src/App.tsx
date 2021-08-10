@@ -1,5 +1,5 @@
 import { Header } from './components/Header';
-import { GlobalStyles } from './styles/global';
+import { GlobalStyles } from './Styles/global';
 import { HiLightBulb } from 'react-icons/hi';
 import { ModalComponent } from './components/ModalComponent';
 import { HiPlusCircle } from 'react-icons/hi';

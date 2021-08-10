@@ -11,8 +11,16 @@ export const Container = styled.div<Pick<InputProps, 'color' | 'bgColor'>>`
   color: ${({color}) => color};
   background-color: transparent;
   
-  input {
+  .wrapperInput{
     min-width: 70%;
+    display:  flex;
+    gap: 1rem;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  input {
+    width: 100%;
     padding: .75rem;
     border: none;
     background-color: ${({bgColor}) => darken(.2, String(bgColor))};
