@@ -13,14 +13,8 @@ import {
 } from 'react-icons/md';
 
 export const ModalForm: React.FC = () => {
-  const {
-    inputValue,
-    setInputValue,
-    toDoList,
-    setToDoList,
-    priorityIconValue,
-    setPriorityIconValue
-  } = useContext(TasksContext);
+  const { inputValue, setInputValue, toDoList, setToDoList, setOpenModal } =
+    useContext(TasksContext);
   const handleSubmit = (ev: any) => {
     ev.preventDefault();
     setToDoList([...toDoList, { ...inputValue, id: ++toDoList.length }]);
@@ -29,34 +23,50 @@ export const ModalForm: React.FC = () => {
       task: '',
       category: '',
       priority: 0,
-      priorityIcon: <MdSignalCellular0Bar size='32' />,
+      priorityIcon: <MdSignalCellular0Bar size="32" />,
       completed: false,
     });
+    setOpenModal(false)
   };
 
-  const handleChange = (ev: any, size: string) => {
+  const handleChange = (ev: any) => {
     switch (ev.target.value) {
       case '4':
-        setPriorityIconValue(<MdSignalCellular4Bar size={size} />);
+        setInputValue({
+          ...inputValue,
+          priority: ev.target.value,
+          priorityIcon: <MdSignalCellular4Bar size="32" />,
+        });
         break;
       case '3':
-        setPriorityIconValue(<MdSignalCellular3Bar size={size}/>);
+        setInputValue({
+          ...inputValue,
+          priority: ev.target.value,
+          priorityIcon: <MdSignalCellular3Bar size="32" />,
+        });
         break;
       case '2':
-        setPriorityIconValue(<MdSignalCellular2Bar size={size}/>);
+        setInputValue({
+          ...inputValue,
+          priority: ev.target.value,
+          priorityIcon: <MdSignalCellular2Bar size="32" />,
+        });
         break;
       case '1':
-        setPriorityIconValue(<MdSignalCellular1Bar size={size}/>);
+        setInputValue({
+          ...inputValue,
+          priority: ev.target.value,
+          priorityIcon: <MdSignalCellular1Bar size="32" />,
+        });
         break;
       default:
-        setPriorityIconValue(<MdSignalCellular0Bar size={size}/>);
+        setInputValue({
+          ...inputValue,
+          priority: ev.target.value,
+          priorityIcon: <MdSignalCellular0Bar size="32" />,
+        });
         break;
     }
-    setInputValue({
-      ...inputValue,
-      priority: ev.target.value,
-      priorityIcon: priorityIconValue,
-    });
   };
 
   return (
@@ -90,8 +100,8 @@ export const ModalForm: React.FC = () => {
           min={0}
           max={4}
           value={inputValue.priority}
-          onChange={ev => handleChange(ev, '32')}
-          complementIcon={priorityIconValue}
+          onChange={(ev) => handleChange(ev)}
+          complementIcon={inputValue.priorityIcon}
         />
       </div>
 
