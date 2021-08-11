@@ -19,8 +19,6 @@ interface PropsTaskContext {
   setOpenModal: Dispatch<SetStateAction<boolean>>;
   toDoList: TaskProps[];
   setToDoList: Dispatch<SetStateAction<TaskProps[]>>;
-  priorityIconValue: ReactElement<any, any>;
-  setPriorityIconValue: Dispatch<SetStateAction<ReactElement<any, any>>>;
 }
 
 const defaultValue = {
@@ -37,8 +35,6 @@ const defaultValue = {
   setOpenModal: () => {},
   toDoList: [],
   setToDoList: () => {},
-  priorityIconValue: <MdSignalCellular0Bar size='32' />,
-  setPriorityIconValue: () => {},
 };
 
 export const TasksContext = createContext<PropsTaskContext>(defaultValue);
@@ -47,9 +43,6 @@ export const TasksContextProvider: React.FC = ({ children }) => {
   const [inputValue, setInputValue] = useState(defaultValue.inputValue);
   const [openModal, setOpenModal] = useState(defaultValue.openModal);
   const [toDoList, setToDoList] = useState<TaskProps[]>(defaultValue.toDoList);
-  const [priorityIconValue, setPriorityIconValue] = useState(
-    defaultValue.priorityIconValue
-  );
 
   return (
     <TasksContext.Provider
@@ -59,9 +52,7 @@ export const TasksContextProvider: React.FC = ({ children }) => {
         openModal,
         setOpenModal,
         toDoList,
-        setToDoList,
-        priorityIconValue,
-        setPriorityIconValue
+        setToDoList
       }}
     >
       {children}

@@ -6,21 +6,38 @@ export const Container = styled.div`
   flex-wrap: wrap;
   margin: -5rem auto 0;
   background-color: #fff;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   padding: 1rem 2rem;
-  
+
   .wrapperTask {
     box-sizing: initial;
     width: 100%;
     height: 2rem;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    border-bottom: 1px solid #000;
-    margin: .5rem 0;
-    padding: .5rem 0;
+    grid-template-columns: 75px repeat(2, 1fr) 100px 75px;
+    border-bottom: 1px solid #ccc;
+    margin: 0.5rem 0;
+    padding: 0.5rem 0;
     align-items: center;
 
-    &:last-child {
+    .trashField,
+    .checkField,
+    .levelPriority {
+      width: 100%;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .trashIcon {
+      cursor: pointer;
+            
+    }
+
+    :first-child {
+      border-bottom: 1px solid #000;
+    }
+
+    :last-child {
       border-bottom: none;
     }
   }

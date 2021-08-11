@@ -14,4 +14,19 @@ export const GlobalStyles = createGlobalStyle`
   body {
     background: ${darken(.05, '#fff')};
   }
+
+  .animeLeft {
+    animation: animeLeft .5s forwards;
+  }
+
+  @keyframes animeLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: initial;
+    } 
+  }
 `;
