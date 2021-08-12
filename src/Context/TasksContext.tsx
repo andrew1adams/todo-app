@@ -12,6 +12,12 @@ export interface TaskProps {
   priorityIcon: ReactElement<any, any>;
 }
 
+interface FilteredStatusProps {
+  task: boolean
+  category: boolean
+  levelPriority: boolean
+}
+
 interface PropsTaskContext {
   inputValue: TaskProps;
   setInputValue: Dispatch<SetStateAction<TaskProps>>;
@@ -19,6 +25,14 @@ interface PropsTaskContext {
   setOpenModal: Dispatch<SetStateAction<boolean>>;
   toDoList: TaskProps[];
   setToDoList: Dispatch<SetStateAction<TaskProps[]>>;
+  helperFiltered?: boolean;
+  setHelperFiltered?: Dispatch<SetStateAction<boolean>>
+  filteredStatus: FilteredStatusProps
+  setFilteredStatus?: Dispatch<SetStateAction<FilteredStatusProps>>;
+  handleDeleteTask: (id: number) => void;
+  sortByTaskName: () => void;
+  sortByCategory: () => void;
+  sortByLevelPriority: () => void;
 }
 
 const defaultValue = {
@@ -28,13 +42,22 @@ const defaultValue = {
     category: '',
     completed: false,
     priority: 0,
-    priorityIcon: <MdSignalCellular0Bar size='32' />,
+    priorityIcon: <MdSignalCellular0Bar size="32" />,
   },
   setInputValue: () => {},
   openModal: false,
   setOpenModal: () => {},
   toDoList: [],
   setToDoList: () => {},
+  filteredStatus: {
+    task: false,
+    category: false,
+    levelPriority: false
+  },
+  handleDeleteTask: (id: number) => {},
+  sortByTaskName: () => {},
+  sortByCategory: () => {},
+  sortByLevelPriority: () => {},
 };
 
 export const TasksContext = createContext<PropsTaskContext>(defaultValue);
@@ -43,6 +66,73 @@ export const TasksContextProvider: React.FC = ({ children }) => {
   const [inputValue, setInputValue] = useState(defaultValue.inputValue);
   const [openModal, setOpenModal] = useState(defaultValue.openModal);
   const [toDoList, setToDoList] = useState<TaskProps[]>(defaultValue.toDoList);
+  const [helperFiltered, setHelperFiltered] = useState<boolean>(false)
+  const [filteredStatus, setFilteredStatus] = useState<FilteredStatusProps>(defaultValue.filteredStatus)
+
+  const toUpperCaseTransform = (taskProperty: string) => {
+    return taskProperty.toLocaleLowerCase();
+  };
+
+  const handleDeleteTask = (id: number) => {
+    // eslint-disable-next-line no-restricted-globals
+    const confirmDelete = confirm('Are you sure of DELETE this task?');
+
+    if (confirmDelete) {
+      const removeTask = [...toDoList].filter((tasks) => tasks.id !== id);
+      setToDoList(removeTask);
+    }
+  };
+
+  const sortByTaskName = () => {
+    const orderedArrayByTaskName = [...toDoList].sort((taskA, taskB) => {
+      let A = toUpperCaseTransform(taskA.task),
+          B = toUpperCaseTransform(taskB.task);
+      return A > B ? -1 : B > A ? 1 : 0;
+    });
+
+    setHelperFiltered(!helperFiltered)
+    setFilteredStatus({...defaultValue.filteredStatus, task: helperFiltered})
+
+    if (filteredStatus.task) {
+      setToDoList([...orderedArrayByTaskName]);
+    } else {
+      setToDoList([...orderedArrayByTaskName].reverse())
+    }
+  };
+
+  const sortByCategory = () => {
+    const orderedArrayByCategory = [...toDoList].sort((taskA, taskB) => {
+      let A = toUpperCaseTransform(taskA.category),
+          B = toUpperCaseTransform(taskB.category);
+      return A > B ? 1 : B > A ? -1 : 0;
+    });
+
+    setHelperFiltered(!helperFiltered)
+    setFilteredStatus({...defaultValue.filteredStatus, category: helperFiltered})
+
+    if (filteredStatus.category) {
+      setToDoList([...orderedArrayByCategory]);
+    } else {
+      setToDoList([...orderedArrayByCategory].reverse())
+    }
+  };
+
+  const sortByLevelPriority = () => {
+    const orderedArrayByLevelPriority = [...toDoList].sort((taskA, taskB) => {
+      let A = taskA.priority,
+          B = taskB.priority;
+      return A > B ? 1 : B > A ? -1 : 0;
+    });
+    
+    setHelperFiltered(!helperFiltered)
+    setFilteredStatus({...defaultValue.filteredStatus, levelPriority: helperFiltered})
+
+    if (filteredStatus.levelPriority) {
+      setToDoList([...orderedArrayByLevelPriority]);
+    } else {
+      setToDoList([...orderedArrayByLevelPriority].reverse())
+    }
+  };
 
   return (
     <TasksContext.Provider
@@ -52,7 +142,12 @@ export const TasksContextProvider: React.FC = ({ children }) => {
         openModal,
         setOpenModal,
         toDoList,
-        setToDoList
+        setToDoList,
+        filteredStatus,
+        handleDeleteTask,
+        sortByTaskName,
+        sortByCategory,
+        sortByLevelPriority,
       }}
     >
       {children}

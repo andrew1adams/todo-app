@@ -16,7 +16,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   .animeLeft {
-    animation: animeLeft .5s forwards;
+    animation: animeLeft ${Math.random() + 's'} forwards;
   }
 
   @keyframes animeLeft {
