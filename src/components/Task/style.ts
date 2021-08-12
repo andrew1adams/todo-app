@@ -8,29 +8,21 @@ export const Container = styled.div`
   background-color: #fff;
   border-radius: 0.5rem;
   padding: 1rem 2rem;
+  color: #333;
 
-  .wrapperTask {
+  .wrapper {
     box-sizing: initial;
     width: 100%;
     height: 2rem;
     display: grid;
-    grid-template-columns: 75px repeat(2, 1fr) 100px 75px;
+    grid-template-columns: max(75px) repeat(2, 1fr) 1fr max(75px);
     border-bottom: 1px solid #ccc;
     margin: 0.5rem 0;
     padding: 0.5rem 0;
     align-items: center;
 
-    .trashField,
-    .checkField,
-    .levelPriority {
+    .checkField {
       width: 100%;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .trashIcon {
-      cursor: pointer;
-            
     }
 
     :first-child {
@@ -41,4 +33,34 @@ export const Container = styled.div`
       border-bottom: none;
     }
   }
+
+  .titles {
+    font-weight: bolder;
+    text-transform: uppercase;
+  }
+
+  .sortField {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: right;
+
+    svg {
+      cursor: pointer;
+      transition: .2s;
+    }
+  }
+
+  .levelPriority, .trashField {
+    margin: 0 auto;
+  }
+
+  .checkField, .trashField {
+    cursor: pointer;
+  }
+
+  .mirrorClass {
+    transform: scaleY(-1);
+  }
+
 `;
