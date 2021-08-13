@@ -1,18 +1,30 @@
 import { useContext } from 'react';
-import { FaTrashAlt } from 'react-icons/fa';
+import { FaLongArrowAltUp, FaTrashAlt } from 'react-icons/fa';
 import { TasksContext } from '../../Context/TasksContext';
 import { Container } from './style';
-import { BsFilterLeft } from 'react-icons/bs';
 
 export const Task: React.FC = () => {
   const {
     toDoList,
+    setToDoList,
+    filteredStatus,
     handleDeleteTask,
     sortByCategory,
     sortByLevelPriority,
     sortByTaskName,
-    filteredStatus,
   } = useContext(TasksContext);
+
+  const handleCompletedTask = (id: number) => {
+    const updatedToDoTask = toDoList.map((task) => {
+      if (task.id === id) {
+        task.completed = !task.completed;
+      }
+
+      return task;
+    });
+
+    setToDoList(updatedToDoTask);
+  };
 
   return (
     <Container>
@@ -21,33 +33,53 @@ export const Task: React.FC = () => {
         <div className="sortField">
           <p>Title</p>
           {filteredStatus.task ? (
-            <BsFilterLeft className='mirrorClass' size="32" onClick={sortByTaskName} />
+            <FaLongArrowAltUp size="24" onClick={sortByTaskName} />
           ) : (
-            <BsFilterLeft size="32" onClick={sortByTaskName} />
+            <FaLongArrowAltUp
+              className="mirrorClass"
+              size="24"
+              onClick={sortByTaskName}
+            />
           )}
         </div>
         <div className="sortField">
           <p>Category</p>
           {filteredStatus.category ? (
-            <BsFilterLeft className='mirrorClass' size="32" onClick={sortByCategory} />
+            <FaLongArrowAltUp size="24" onClick={sortByCategory} />
           ) : (
-            <BsFilterLeft size="32" onClick={sortByCategory} />
+            <FaLongArrowAltUp
+              className="mirrorClass"
+              size="24"
+              onClick={sortByCategory}
+            />
           )}
         </div>
         <div className="levelPriority sortField">
           <p>Level Priority</p>
           {filteredStatus.levelPriority ? (
-            <BsFilterLeft className='mirrorClass' size="32" onClick={sortByLevelPriority} />
+            <FaLongArrowAltUp size="24" onClick={sortByLevelPriority} />
           ) : (
-            <BsFilterLeft size="32" onClick={sortByLevelPriority} />
+            <FaLongArrowAltUp
+              className="mirrorClass"
+              size="24"
+              onClick={sortByLevelPriority}
+            />
           )}
         </div>
         <div className="trashField" />
       </div>
       {toDoList.map((task) => {
         return (
-          <div className="wrapper animeLeft" key={task.id}>
-            <input className="checkField" type="checkbox" />
+          <div
+            className={`wrapper animeLeft ${task.completed ? 'completed' : ''}`}
+            key={task.id}
+          >
+            <input
+              className="checkField"
+              type="checkbox"
+              checked={task.completed ? true : false}
+              onChange={() => handleCompletedTask(task.id)}
+            />
             <p>{task.task}</p>
             <p>{task.category}</p>
             <div className="levelPriority">{task.priorityIcon}</div>

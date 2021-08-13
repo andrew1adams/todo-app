@@ -15,22 +15,24 @@ export const Container = styled.div`
     width: 100%;
     height: 2rem;
     display: grid;
-    grid-template-columns: max(75px) repeat(2, 1fr) 1fr max(75px);
-    border-bottom: 1px solid #ccc;
+    grid-template-columns: max(50px) repeat(2, 1fr) max(150px) max(50px);
     margin: 0.5rem 0;
-    padding: 0.5rem 0;
+    padding: 1rem 0;
     align-items: center;
+    box-shadow: 0 1px 0px #ddd;
 
     .checkField {
       width: 100%;
     }
 
     :first-child {
-      border-bottom: 1px solid #000;
+      box-shadow: 0 1px 0px #000;
+      background: none;
+      border-radius: 0;
     }
 
     :last-child {
-      border-bottom: none;
+      box-shadow: none;
     }
   }
 
@@ -63,4 +65,10 @@ export const Container = styled.div`
     transform: scaleY(-1);
   }
 
+  .completed {
+    opacity: 0;
+    background: #ccc;
+    border-radius: .5rem;
+    box-shadow: none;
+  }
 `;
