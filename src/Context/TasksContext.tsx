@@ -13,9 +13,9 @@ export interface TaskProps {
 }
 
 interface FilteredStatusProps {
-  task: boolean
-  category: boolean
-  levelPriority: boolean
+  task: boolean;
+  category: boolean;
+  levelPriority: boolean;
 }
 
 interface PropsTaskContext {
@@ -25,9 +25,7 @@ interface PropsTaskContext {
   setOpenModal: Dispatch<SetStateAction<boolean>>;
   toDoList: TaskProps[];
   setToDoList: Dispatch<SetStateAction<TaskProps[]>>;
-  helperFiltered?: boolean;
-  setHelperFiltered?: Dispatch<SetStateAction<boolean>>
-  filteredStatus: FilteredStatusProps
+  filteredStatus: FilteredStatusProps;
   setFilteredStatus?: Dispatch<SetStateAction<FilteredStatusProps>>;
   handleDeleteTask: (id: number) => void;
   sortByTaskName: () => void;
@@ -52,7 +50,7 @@ const defaultValue = {
   filteredStatus: {
     task: false,
     category: false,
-    levelPriority: false
+    levelPriority: false,
   },
   handleDeleteTask: (id: number) => {},
   sortByTaskName: () => {},
@@ -66,8 +64,9 @@ export const TasksContextProvider: React.FC = ({ children }) => {
   const [inputValue, setInputValue] = useState(defaultValue.inputValue);
   const [openModal, setOpenModal] = useState(defaultValue.openModal);
   const [toDoList, setToDoList] = useState<TaskProps[]>(defaultValue.toDoList);
-  const [helperFiltered, setHelperFiltered] = useState<boolean>(false)
-  const [filteredStatus, setFilteredStatus] = useState<FilteredStatusProps>(defaultValue.filteredStatus)
+  const [filteredStatus, setFilteredStatus] = useState<FilteredStatusProps>(
+    defaultValue.filteredStatus
+  );
 
   const toUpperCaseTransform = (taskProperty: string) => {
     return taskProperty.toLocaleLowerCase();
@@ -86,51 +85,57 @@ export const TasksContextProvider: React.FC = ({ children }) => {
   const sortByTaskName = () => {
     const orderedArrayByTaskName = [...toDoList].sort((taskA, taskB) => {
       let A = toUpperCaseTransform(taskA.task),
-          B = toUpperCaseTransform(taskB.task);
+        B = toUpperCaseTransform(taskB.task);
       return A > B ? -1 : B > A ? 1 : 0;
     });
 
-    setHelperFiltered(!helperFiltered)
-    setFilteredStatus({...defaultValue.filteredStatus, task: helperFiltered})
+    setFilteredStatus({
+      ...defaultValue.filteredStatus,
+      task: !filteredStatus.task,
+    });
 
     if (filteredStatus.task) {
       setToDoList([...orderedArrayByTaskName]);
     } else {
-      setToDoList([...orderedArrayByTaskName].reverse())
+      setToDoList([...orderedArrayByTaskName].reverse());
     }
   };
 
   const sortByCategory = () => {
     const orderedArrayByCategory = [...toDoList].sort((taskA, taskB) => {
       let A = toUpperCaseTransform(taskA.category),
-          B = toUpperCaseTransform(taskB.category);
-      return A > B ? 1 : B > A ? -1 : 0;
+        B = toUpperCaseTransform(taskB.category);
+      return A > B ? -1 : B > A ? 1 : 0;
     });
 
-    setHelperFiltered(!helperFiltered)
-    setFilteredStatus({...defaultValue.filteredStatus, category: helperFiltered})
+    setFilteredStatus({
+      ...defaultValue.filteredStatus,
+      category: !filteredStatus.category,
+    });
 
     if (filteredStatus.category) {
       setToDoList([...orderedArrayByCategory]);
     } else {
-      setToDoList([...orderedArrayByCategory].reverse())
+      setToDoList([...orderedArrayByCategory].reverse());
     }
   };
 
   const sortByLevelPriority = () => {
     const orderedArrayByLevelPriority = [...toDoList].sort((taskA, taskB) => {
       let A = taskA.priority,
-          B = taskB.priority;
-      return A > B ? 1 : B > A ? -1 : 0;
+        B = taskB.priority;
+      return A > B ? -1 : B > A ? 1 : 0;
     });
-    
-    setHelperFiltered(!helperFiltered)
-    setFilteredStatus({...defaultValue.filteredStatus, levelPriority: helperFiltered})
+
+    setFilteredStatus({
+      ...defaultValue.filteredStatus,
+      levelPriority: !filteredStatus.levelPriority,
+    });
 
     if (filteredStatus.levelPriority) {
       setToDoList([...orderedArrayByLevelPriority]);
     } else {
-      setToDoList([...orderedArrayByLevelPriority].reverse())
+      setToDoList([...orderedArrayByLevelPriority].reverse());
     }
   };
 

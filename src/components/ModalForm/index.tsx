@@ -15,6 +15,7 @@ import {
 export const ModalForm: React.FC = () => {
   const { inputValue, setInputValue, toDoList, setToDoList, setOpenModal } =
     useContext(TasksContext);
+
   const handleSubmit = (ev: any) => {
     ev.preventDefault();
     setToDoList([...toDoList, { ...inputValue, id: ++toDoList.length }]);
@@ -26,7 +27,7 @@ export const ModalForm: React.FC = () => {
       priorityIcon: <MdSignalCellular0Bar size="32" />,
       completed: false,
     });
-    setOpenModal(false)
+    setOpenModal(false);
   };
 
   const handleChange = (ev: any) => {
