@@ -1,18 +1,10 @@
 import { useContext } from 'react';
-import { FaLongArrowAltUp, FaTrashAlt } from 'react-icons/fa';
+import { FaTrashAlt } from 'react-icons/fa';
 import { TasksContext } from '../../Context/TasksContext';
-import { Container } from './style';
 
 export const Task: React.FC = () => {
-  const {
-    toDoList,
-    setToDoList,
-    filteredStatus,
-    handleDeleteTask,
-    sortByCategory,
-    sortByLevelPriority,
-    sortByTaskName,
-  } = useContext(TasksContext);
+  const { toDoList, setToDoList, handleDeleteTask } =
+    useContext(TasksContext);
 
   const handleCompletedTask = (id: number) => {
     const updatedToDoTask = toDoList.map((task) => {
@@ -27,48 +19,8 @@ export const Task: React.FC = () => {
   };
 
   return (
-    <Container>
-      <div className="wrapper titles animeLeft">
-        <div className="checkField" />
-        <div className="sortField">
-          <p>Title</p>
-          {filteredStatus.task ? (
-            <FaLongArrowAltUp size="24" onClick={sortByTaskName} />
-          ) : (
-            <FaLongArrowAltUp
-              className="mirrorClass"
-              size="24"
-              onClick={sortByTaskName}
-            />
-          )}
-        </div>
-        <div className="sortField">
-          <p>Category</p>
-          {filteredStatus.category ? (
-            <FaLongArrowAltUp size="24" onClick={sortByCategory} />
-          ) : (
-            <FaLongArrowAltUp
-              className="mirrorClass"
-              size="24"
-              onClick={sortByCategory}
-            />
-          )}
-        </div>
-        <div className="levelPriority sortField">
-          <p>Level Priority</p>
-          {filteredStatus.levelPriority ? (
-            <FaLongArrowAltUp size="24" onClick={sortByLevelPriority} />
-          ) : (
-            <FaLongArrowAltUp
-              className="mirrorClass"
-              size="24"
-              onClick={sortByLevelPriority}
-            />
-          )}
-        </div>
-        <div className="trashField" />
-      </div>
-      {toDoList.map((task) => {
+    <>
+      {toDoList.length !== 0 ? toDoList.map((task) => {
         return (
           <div
             className={`wrapper animeLeft ${task.completed ? 'completed' : ''}`}
@@ -93,7 +45,7 @@ export const Task: React.FC = () => {
             </div>
           </div>
         );
-      })}
-    </Container>
+      }) : null}
+    </>
   );
 };

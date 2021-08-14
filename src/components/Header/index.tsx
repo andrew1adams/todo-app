@@ -16,12 +16,12 @@ export const Header: React.FC<HeaderProps> = ({
   color = '#fff',
   height = '30vh',
   buttonInterative,
-  principalHeader,
+  principalHeader = '',
 }) => {
   return (
     <Container bgColor={bgColor} color={color} height={height}>
       <div className="wrapperHeader">
-        {logotype}
+        <div className="sideGrids">{logotype}</div>
         {principalHeader && (
           <div className="todoName">
             <p>to</p>
@@ -29,7 +29,7 @@ export const Header: React.FC<HeaderProps> = ({
             <p>list</p>
           </div>
         )}
-        {buttonInterative}
+        <div className="sideGrids">{buttonInterative}</div>
       </div>
     </Container>
   );
