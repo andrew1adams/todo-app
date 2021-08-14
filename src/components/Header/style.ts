@@ -38,4 +38,19 @@ export const Container = styled.header<Pick<HeaderProps, 'bgColor' | 'color' | '
       cursor: pointer;
     }
   }
+
+  .sideGrids {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    p {
+      opacity: 0;
+      transition: .5s;
+    }
+
+    &:hover p{
+      opacity: 1;
+    }
+  }
 `;

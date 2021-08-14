@@ -18,15 +18,16 @@ export const ModalForm: React.FC = () => {
 
   const handleSubmit = (ev: any) => {
     ev.preventDefault();
-    setToDoList([...toDoList, { ...inputValue, id: ++toDoList.length }]);
-    setInputValue({
-      id: 0,
-      task: '',
-      category: '',
-      priority: 0,
-      priorityIcon: <MdSignalCellular0Bar size="32" />,
-      completed: false,
-    });
+      setToDoList([...toDoList, { ...inputValue, id: (Math.random() * ++toDoList.length) }]);
+      setInputValue({
+        id: 0,
+        task: '',
+        category: '',
+        priority: 0,
+        priorityIcon: <MdSignalCellular0Bar size="32" />,
+        completed: false,
+      });
+
     setOpenModal(false);
   };
 

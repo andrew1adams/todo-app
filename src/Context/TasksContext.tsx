@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 import { ReactElement } from 'react';
 import { createContext } from 'react';
 import { MdSignalCellular0Bar } from 'react-icons/md';
+import { useLocalStorage } from '../Hooks/useLocalStorage';
 
 export interface TaskProps {
   id: number;
@@ -13,6 +14,7 @@ export interface TaskProps {
 }
 
 interface FilteredStatusProps {
+  completedTask: boolean;
   task: boolean;
   category: boolean;
   levelPriority: boolean;
@@ -25,9 +27,12 @@ interface PropsTaskContext {
   setOpenModal: Dispatch<SetStateAction<boolean>>;
   toDoList: TaskProps[];
   setToDoList: Dispatch<SetStateAction<TaskProps[]>>;
+  localDataTask: TaskProps[] | undefined;
+  setLocalDataTask: Dispatch<React.SetStateAction<TaskProps[] | undefined>>;
   filteredStatus: FilteredStatusProps;
   setFilteredStatus?: Dispatch<SetStateAction<FilteredStatusProps>>;
   handleDeleteTask: (id: number) => void;
+  sortByCompletedTasks: () => void;
   sortByTaskName: () => void;
   sortByCategory: () => void;
   sortByLevelPriority: () => void;
@@ -47,12 +52,16 @@ const defaultValue = {
   setOpenModal: () => {},
   toDoList: [],
   setToDoList: () => {},
+  localDataTask: [],
+  setLocalDataTask: () => {},
   filteredStatus: {
+    completedTask: false,
     task: false,
     category: false,
     levelPriority: false,
   },
   handleDeleteTask: (id: number) => {},
+  sortByCompletedTasks: () => {},
   sortByTaskName: () => {},
   sortByCategory: () => {},
   sortByLevelPriority: () => {},
@@ -67,9 +76,13 @@ export const TasksContextProvider: React.FC = ({ children }) => {
   const [filteredStatus, setFilteredStatus] = useState<FilteredStatusProps>(
     defaultValue.filteredStatus
   );
+  const [localDataTask, setLocalDataTask] = useLocalStorage(
+    'todo-app/tasks',
+    toDoList
+  );
 
   const toUpperCaseTransform = (taskProperty: string) => {
-    return taskProperty.toLocaleLowerCase();
+    return taskProperty.toLocaleUpperCase();
   };
 
   const handleDeleteTask = (id: number) => {
@@ -82,11 +95,32 @@ export const TasksContextProvider: React.FC = ({ children }) => {
     }
   };
 
+  const sortByCompletedTasks = () => {
+    if (toDoList.length > 1) {
+      const orderedArrayByCompletedTasks = [...toDoList].sort((A, B) => {
+        let completedA = A.completed,
+          completedB = B.completed;
+        return completedA ? -1 : completedB ? 1 : 0;
+      });
+
+      setFilteredStatus({
+        ...defaultValue.filteredStatus,
+        completedTask: !filteredStatus.completedTask,
+      });
+
+      if (filteredStatus.completedTask) {
+        setToDoList([...orderedArrayByCompletedTasks]);
+      } else {
+        setToDoList([...orderedArrayByCompletedTasks].reverse());
+      }
+    }
+  };
+
   const sortByTaskName = () => {
-    const orderedArrayByTaskName = [...toDoList].sort((taskA, taskB) => {
-      let A = toUpperCaseTransform(taskA.task),
-        B = toUpperCaseTransform(taskB.task);
-      return A > B ? -1 : B > A ? 1 : 0;
+    const orderedArrayByTaskName = [...toDoList].sort((A, B) => {
+      let taskA = toUpperCaseTransform(A.task),
+        taskB = toUpperCaseTransform(B.task);
+      return taskA > taskB ? -1 : taskB > taskA ? 1 : 0;
     });
 
     setFilteredStatus({
@@ -102,10 +136,10 @@ export const TasksContextProvider: React.FC = ({ children }) => {
   };
 
   const sortByCategory = () => {
-    const orderedArrayByCategory = [...toDoList].sort((taskA, taskB) => {
-      let A = toUpperCaseTransform(taskA.category),
-        B = toUpperCaseTransform(taskB.category);
-      return A > B ? -1 : B > A ? 1 : 0;
+    const orderedArrayByCategory = [...toDoList].sort((A, B) => {
+      let categoryA = toUpperCaseTransform(A.category),
+        categoryB = toUpperCaseTransform(B.category);
+      return categoryA > categoryB ? -1 : categoryB > categoryA ? 1 : 0;
     });
 
     setFilteredStatus({
@@ -121,10 +155,10 @@ export const TasksContextProvider: React.FC = ({ children }) => {
   };
 
   const sortByLevelPriority = () => {
-    const orderedArrayByLevelPriority = [...toDoList].sort((taskA, taskB) => {
-      let A = taskA.priority,
-        B = taskB.priority;
-      return A > B ? -1 : B > A ? 1 : 0;
+    const orderedArrayByLevelPriority = [...toDoList].sort((A, B) => {
+      let priorityA = A.priority,
+        priorityB = B.priority;
+      return priorityA > priorityB ? -1 : priorityB > priorityA ? 1 : 0;
     });
 
     setFilteredStatus({
@@ -148,8 +182,11 @@ export const TasksContextProvider: React.FC = ({ children }) => {
         setOpenModal,
         toDoList,
         setToDoList,
+        localDataTask,
+        setLocalDataTask,
         filteredStatus,
         handleDeleteTask,
+        sortByCompletedTasks,
         sortByTaskName,
         sortByCategory,
         sortByLevelPriority,
