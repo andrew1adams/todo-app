@@ -107,7 +107,7 @@ export const ModalForm: React.FC = () => {
         />
       </div>
 
-      <Button className="btn" onClick={() => {}}>
+      <Button className="btn" onClick={() => handleSubmit}>
         Add Task
       </Button>
     </Container>

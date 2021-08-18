@@ -13,11 +13,10 @@ export const Container = styled.div`
   .wrapper {
     box-sizing: initial;
     width: 100%;
-    height: 2rem;
     display: grid;
     grid-template-columns: max(60px) repeat(2, 1fr) max(170px) max(60px);
     margin: 0.5rem 0;
-    padding: 1rem 0;
+    padding: 1.25rem 0;
     align-items: center;
     box-shadow: 0 1px 0px #ddd;
 

@@ -6,7 +6,7 @@ export interface ButtonProps {
   bgColor?: string;
   size?: string;
   className?: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export const Button: React.FC<ButtonProps> = ({
