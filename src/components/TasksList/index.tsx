@@ -20,11 +20,11 @@ export const TasksList: React.FC = () => {
       <div className="wrapper titles animeLeft">
         <div className="checkField">
           {toDoList.length <= 1 ? null : filteredStatus.completedTask ? (
-            <FaLongArrowAltUp size="24" onClick={sortByCompletedTasks} />
+            <FaLongArrowAltUp size="18" onClick={sortByCompletedTasks} />
           ) : (
             <FaLongArrowAltUp
               className="mirrorClass"
-              size="24"
+              size="18"
               onClick={sortByCompletedTasks}
             />
           )}
@@ -32,11 +32,11 @@ export const TasksList: React.FC = () => {
         <div className="sortField">
           <p>Title</p>
           {toDoList.length <= 1 ? null : filteredStatus.task ? (
-            <FaLongArrowAltUp size="24" onClick={sortByTaskName} />
+            <FaLongArrowAltUp size="18" onClick={sortByTaskName} />
           ) : (
             <FaLongArrowAltUp
               className="mirrorClass"
-              size="24"
+              size="18"
               onClick={sortByTaskName}
             />
           )}
@@ -44,11 +44,11 @@ export const TasksList: React.FC = () => {
         <div className="sortField">
           <p>Category</p>
           {toDoList.length <= 1 ? null : filteredStatus.category ? (
-            <FaLongArrowAltUp size="24" onClick={sortByCategory} />
+            <FaLongArrowAltUp size="18" onClick={sortByCategory} />
           ) : (
             <FaLongArrowAltUp
               className="mirrorClass"
-              size="24"
+              size="18"
               onClick={sortByCategory}
             />
           )}
@@ -56,11 +56,11 @@ export const TasksList: React.FC = () => {
         <div className="sortField">
           <p>Level Priority</p>
           {toDoList.length <= 1 ? null : filteredStatus.levelPriority ? (
-            <FaLongArrowAltUp size="24" onClick={sortByLevelPriority} />
+            <FaLongArrowAltUp size="18" onClick={sortByLevelPriority} />
           ) : (
             <FaLongArrowAltUp
               className="mirrorClass"
-              size="24"
+              size="18"
               onClick={sortByLevelPriority}
             />
           )}

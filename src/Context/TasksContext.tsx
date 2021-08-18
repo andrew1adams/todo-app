@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { ReactElement } from 'react';
+import { useEffect } from 'react';
 import { createContext } from 'react';
 import { MdSignalCellular0Bar } from 'react-icons/md';
 import { useLocalStorage } from '../Hooks/useLocalStorage';
@@ -78,8 +79,13 @@ export const TasksContextProvider: React.FC = ({ children }) => {
   );
   const [localDataTask, setLocalDataTask] = useLocalStorage(
     'todo-app/tasks',
-    toDoList
+    [...toDoList]
   );
+
+  useEffect(() => {
+    setToDoList(localDataTask as TaskProps[])
+
+  }, [localDataTask])
 
   const toUpperCaseTransform = (taskProperty: string) => {
     return taskProperty.toLocaleUpperCase();

@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
 import { TasksContext } from '../../Context/TasksContext';
+import Checkbox from '@material-ui/core/Checkbox';
 
 export const Task: React.FC = () => {
   const { toDoList, setToDoList, handleDeleteTask } =
     useContext(TasksContext);
-
   const handleCompletedTask = (id: number) => {
     const updatedToDoTask = toDoList.map((task) => {
       if (task.id === id) {
@@ -20,15 +20,15 @@ export const Task: React.FC = () => {
 
   return (
     <>
-      {toDoList.length !== 0 ? toDoList.map((task) => {
+      {toDoList.map((task) => {
         return (
           <div
             className={`wrapper animeLeft ${task.completed ? 'completed' : ''}`}
             key={task.id}
           >
-            <input
-              className="checkField"
-              type="checkbox"
+            <Checkbox
+              className="checkField checkboxInput"
+              color="primary"
               checked={task.completed ? true : false}
               onChange={() => handleCompletedTask(task.id)}
             />
@@ -45,7 +45,7 @@ export const Task: React.FC = () => {
             </div>
           </div>
         );
-      }) : null}
+      })}
     </>
   );
 };
